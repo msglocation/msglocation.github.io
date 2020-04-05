@@ -1,5 +1,7 @@
 body {
   overflow: hidden;
+  margin: 0;
+  
 }
 #mapid {
   width: 100vw;
