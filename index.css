@@ -9,10 +9,11 @@ body {
   height: 100vh;
 }
 
-#btnsendlocation {
+.btnsendlocation {
   background: #0288d1 !important;
   text-align: center;
-  width: 100vw;
+  width: 100%;
+  flex-grow: 1;
   color: white;
   padding: 1rem;
   position: absolute;
@@ -20,4 +21,9 @@ body {
   z-index: 10000000;
   margin: 0;
   font-family: "Lato", sans-serif;
+}
+
+.buttonwrapper {
+  display: flex;
+  flex-direction: row;
 }
