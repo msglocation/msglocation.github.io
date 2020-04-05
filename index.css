@@ -3,3 +3,9 @@
   height: 500px;
   position: relative;
 }
+
+#btnsendlocation {
+  background: blue !important;
+  text-align: center;
+  color: white;
+}
