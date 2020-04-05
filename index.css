@@ -1,8 +1,7 @@
 body {
   overflow: hidden;
   margin: 0;
-  font-family: 'Lato', sans-serif;
-  
+  font-family: "Lato", sans-serif;
 }
 #mapid {
   width: 100vw;
@@ -11,7 +10,7 @@ body {
 }
 
 #btnsendlocation {
-  background: #0288D1 !important;
+  background: #0288d1 !important;
   text-align: center;
   width: 100vw;
   color: white;
@@ -19,5 +18,5 @@ body {
   position: absolute;
   bottom: 0px;
   z-index: 10000000;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
