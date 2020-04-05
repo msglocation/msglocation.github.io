@@ -73,6 +73,9 @@
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(position => {
             renderMap(position);
+          },()=>{
+            const position={coords:{latitude:"21.9162",longitude:"95.9560"}}
+            renderMap(position);
           });
         } else {
           x.innerHTML = "Geolocation is not supported by this browser.";
@@ -86,8 +89,8 @@
       });
 
       $("#btnSetLocation").click(() => {
-        alert("Send");
         getLocation();
+        console.log("asd");
       });
     </script>
     <script>
