@@ -69,14 +69,29 @@
       <p id="btnSetLocation" class="btnsendlocation">Set Location</p>
     </div>
     <script>
+      function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return "";
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
       function getLocation() {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(position => {
-            renderMap(position);
-          },()=>{
-            const position={coords:{latitude:"21.9162",longitude:"95.9560"}}
-            renderMap(position);
-          });
+          navigator.geolocation.getCurrentPosition(
+            position => {
+              renderMap(position);
+            },
+            () => {
+              const position = {
+                coords: { latitude: "21.9162", longitude: "95.9560" }
+              };
+              renderMap(position);
+            }
+          );
         } else {
           x.innerHTML = "Geolocation is not supported by this browser.";
         }
@@ -85,7 +100,19 @@
         getLocation();
       });
       $("#btnSendLocation").click(() => {
-        alert("Send");
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            position => {
+              console.log(getParameterByName("sender_id"));
+            },
+            () => {
+              const position = {
+                coords: { latitude: "21.9162", longitude: "95.9560" }
+              };
+              console.log(position);
+            }
+          );
+        }
       });
 
       $("#btnSetLocation").click(() => {
