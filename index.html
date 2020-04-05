@@ -65,8 +65,8 @@
       </div>
     </div>
     <div class="buttonwrapper">
-      <p class="btnsendlocation">Send Location</p>
-      <p class="btnsendlocation">Set Location</p>
+      <p id="btnSendLocation" class="btnsendlocation">Send Location</p>
+      <p id="btnSetLocation" class="btnsendlocation">Set Location</p>
     </div>
     <script>
       function getLocation() {
@@ -79,6 +79,14 @@
         }
       }
       $(() => {
+        getLocation();
+      });
+      $("#btnSendLocation").click(() => {
+        alert("Send");
+      });
+
+      $("#btnSetLocation").click(() => {
+        alert("Send");
         getLocation();
       });
     </script>
