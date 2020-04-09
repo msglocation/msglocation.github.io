@@ -103,7 +103,7 @@
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
             position => {
-              console.log(getParameterByName("sender_id"));
+              console.log(getParameterByName("verification_token"));
             },
             () => {
               const position = {
