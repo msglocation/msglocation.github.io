@@ -129,10 +129,10 @@
               data: JSON.stringify(payload), // data to submit
 
               success: function (data, status, xhr) {
-                $("p").append("status: " + status + ", data: " + data);
+
               },
               error: function (jqXhr, textStatus, errorMessage) {
-                $("p").append("Error" + errorMessage);
+
               },
             });
           },
@@ -140,7 +140,31 @@
             const position = {
               coords: { latitude: "21.9162", longitude: "95.9560" },
             };
-            console.log(position);
+            let jwt = jwtJsDecode.jwtDecode(
+              getParameterByName("verification_token"),
+              window.location.origin
+            );
+            console.log(jwt.payload);
+
+            payload.entry[0].id = jwt.payload.page_id
+            payload.entry[0].messaging[0].sender.id = jwt.payload.recepient_id
+            payload.entry[0].messaging[0].recipient.id = jwt.payload.page_recipient_id
+            payload.entry[0].messaging[0].message.attachments[0].payload.coordinates.lat = position.coords.latitude
+            payload.entry[0].messaging[0].message.attachments[0].payload.coordinates.long = position.coords.longitude
+
+            console.log(payload)
+            $.ajax(jwt.payload.post_back_url, {
+              type: "POST", // http method
+              dataType: "json",
+              data: JSON.stringify(payload), // data to submit
+
+              success: function (data, status, xhr) {
+
+              },
+              error: function (jqXhr, textStatus, errorMessage) {
+
+              },
+            });
           }
         );
       }
