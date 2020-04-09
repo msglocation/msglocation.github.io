@@ -1,150 +1,182 @@
 <html>
-  <head>
-    <title>Quick Start - Leaflet</title>
 
-    <meta charset="utf-8" />
+<head>
+  <title>Quick Start - Leaflet</title>
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="docs/images/favicon.ico"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap"
-      rel="stylesheet"
-    />
+  <meta charset="utf-8" />
 
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-      crossorigin=""
-    />
-    <script
-      src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-      crossorigin=""
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./index.css" crossorigin="" />
-  </head>
-  <body>
-    <div
-      id="mapid"
-      class="leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag"
-      tabindex="0"
-    >
-      <div class="leaflet-control-container">
-        <div class="leaflet-top leaflet-left">
-          <div class="leaflet-control-zoom leaflet-bar leaflet-control">
-            <a
-              class="leaflet-control-zoom-in"
-              href="#"
-              title="Zoom in"
-              role="button"
-              aria-label="Zoom in"
-              >+</a
-            ><a
-              class="leaflet-control-zoom-out"
-              href="#"
-              title="Zoom out"
-              role="button"
-              aria-label="Zoom out"
-              >−</a
-            >
-          </div>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="./jwt-js-decode.js"></script>
+  <link rel="stylesheet" href="./index.css" crossorigin="" />
+</head>
+
+<body>
+  <div id="mapid" class="leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex="0">
+    <div class="leaflet-control-container">
+      <div class="leaflet-top leaflet-left">
+        <div class="leaflet-control-zoom leaflet-bar leaflet-control">
+          <a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in">+</a><a
+            class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out">−</a>
         </div>
       </div>
     </div>
-    <div class="buttonwrapper">
-      <p id="btnSendLocation" class="btnsendlocation">Send Location</p>
-      <p id="btnSetLocation" class="btnsendlocation">Set Location</p>
-    </div>
-    <script>
-      function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return "";
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-      }
-
-      function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            position => {
-              renderMap(position);
+  </div>
+  <div class="buttonwrapper">
+    <p id="btnSendLocation" class="btnsendlocation">Send Location</p>
+    <p id="btnSetLocation" class="btnsendlocation">Set Location</p>
+  </div>
+  <script>
+    let payload = {
+      object: "page",
+      entry: [
+        {
+          id: "<PAGE_ID>",
+          time: 1472672934319,
+          messaging: [
+            {
+              sender: {
+                id: "<PSID>",
+              },
+              recipient: {
+                id: "<PAGE_ID>",
+              },
+              timestamp: 1472672934259,
+              message: {
+                mid:
+                  "m_AG5Hz2Uq7tuwNEhXfYYKj8mJEM_QPpz5jdCK48PnKAjSdjfipqxqMvK8ma6AC8fplwlqLP_5cgXIbu7I3rBN0P",
+                attachments: [
+                  {
+                    title: "Facebook HQ",
+                    url:
+                      "https://www.facebook.com/l.php?u=https%....5-7Ocxrmg",
+                    type: "location",
+                    payload: {
+                      coordinates: {
+                        lat: 37.483872693672,
+                        long: -122.14900441942,
+                      },
+                    },
+                  },
+                ],
+              },
             },
-            () => {
-              const position = {
-                coords: { latitude: "21.9162", longitude: "95.9560" }
-              };
-              renderMap(position);
-            }
-          );
-        } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-      }
-      $(() => {
-        getLocation();
-      });
-      $("#btnSendLocation").click(() => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            position => {
-              console.log(getParameterByName("verification_token"));
-            },
-            () => {
-              const position = {
-                coords: { latitude: "21.9162", longitude: "95.9560" }
-              };
-              console.log(position);
-            }
-          );
-        }
-      });
+          ],
+        },
+      ],
+    };
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return "";
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 
-      $("#btnSetLocation").click(() => {
-        getLocation();
-        console.log("asd");
-      });
-    </script>
-    <script>
-      function renderMap(position) {
-        var mymap = L.map("mapid").setView(
-          [position.coords.latitude, position.coords.longitude],
-          13
-        );
-
-        L.tileLayer(
-          "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
-          {
-            maxZoom: 18,
-
-            id: "mapbox/streets-v11",
-            tileSize: 512,
-            zoomOffset: -1
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            renderMap(position);
+          },
+          () => {
+            const position = {
+              coords: { latitude: "21.9162", longitude: "95.9560" },
+            };
+            renderMap(position);
           }
-        ).addTo(mymap);
-
-        L.marker([position.coords.latitude, position.coords.longitude])
-          .addTo(mymap)
-
-          .openPopup();
+        );
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
       }
+    }
+    $(() => {
+      getLocation();
+    });
 
-      var popup = L.popup();
-    </script>
-  </body>
+    $("#btnSendLocation").click(() => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            let jwt = jwtJsDecode.jwtDecode(
+              getParameterByName("verification_token"),
+              window.location.origin
+            );
+            console.log(jwt.payload);
+
+            payload.entry[0].id = jwt.payload.page_id
+            payload.entry[0].messaging[0].sender.id = jwt.payload.recepient_id
+            payload.entry[0].messaging[0].recipient.id = jwt.payload.page_recipient_id
+            payload.entry[0].messaging[0].message.attachments[0].payload.coordinates.lat = position.coords.latitude
+            payload.entry[0].messaging[0].message.attachments[0].payload.coordinates.long = position.coords.longitude
+
+            console.log(payload)
+            $.ajax(jwt.payload.post_back_url, {
+              type: "POST", // http method
+              dataType: "json",
+              data: JSON.stringify(payload), // data to submit
+
+              success: function (data, status, xhr) {
+                $("p").append("status: " + status + ", data: " + data);
+              },
+              error: function (jqXhr, textStatus, errorMessage) {
+                $("p").append("Error" + errorMessage);
+              },
+            });
+          },
+          () => {
+            const position = {
+              coords: { latitude: "21.9162", longitude: "95.9560" },
+            };
+            console.log(position);
+          }
+        );
+      }
+    });
+
+    $("#btnSetLocation").click(() => {
+      getLocation();
+      console.log("asd");
+    });
+  </script>
+  <script>
+    function renderMap(position) {
+      var mymap = L.map("mapid").setView(
+        [position.coords.latitude, position.coords.longitude],
+        13
+      );
+
+      L.tileLayer(
+        "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
+        {
+          maxZoom: 18,
+
+          id: "mapbox/streets-v11",
+          tileSize: 512,
+          zoomOffset: -1,
+        }
+      ).addTo(mymap);
+
+      L.marker([position.coords.latitude, position.coords.longitude])
+        .addTo(mymap)
+
+        .openPopup();
+    }
+
+    var popup = L.popup();
+  </script>
+</body>
+
 </html>
