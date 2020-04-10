@@ -85,6 +85,16 @@
       return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
+    function showDialog() {
+      if (window.confirm('You may want to close this view and check your messenger!')) {
+        // They clicked Yes
+
+      }
+      else {
+        // They clicked no
+      }
+    }
+
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -114,7 +124,7 @@
               getParameterByName("verification_token"),
               window.location.origin
             );
-            console.log(jwt.payload);
+
 
             payload.entry[0].id = jwt.payload.page_id
             payload.entry[0].messaging[0].sender.id = jwt.payload.recepient_id
@@ -122,14 +132,13 @@
             payload.entry[0].messaging[0].message.attachments[0].payload.coordinates.lat = position.coords.latitude
             payload.entry[0].messaging[0].message.attachments[0].payload.coordinates.long = position.coords.longitude
 
-            console.log(payload)
+
             $.ajax(jwt.payload.post_back_url, {
               type: "POST", // http method
               dataType: "json",
               data: JSON.stringify(payload), // data to submit
-
               success: function (data, status, xhr) {
-
+                showDialog()
               },
               error: function (jqXhr, textStatus, errorMessage) {
 
@@ -145,7 +154,7 @@
               getParameterByName("verification_token"),
               window.location.origin
             );
-            console.log(jwt.payload);
+
 
             payload.entry[0].id = jwt.payload.page_id
             payload.entry[0].messaging[0].sender.id = jwt.payload.recepient_id
@@ -153,14 +162,13 @@
             payload.entry[0].messaging[0].message.attachments[0].payload.coordinates.lat = position.coords.latitude
             payload.entry[0].messaging[0].message.attachments[0].payload.coordinates.long = position.coords.longitude
 
-            console.log(payload)
+
             $.ajax(jwt.payload.post_back_url, {
               type: "POST", // http method
               dataType: "json",
               data: JSON.stringify(payload), // data to submit
-
               success: function (data, status, xhr) {
-
+                showDialog()
               },
               error: function (jqXhr, textStatus, errorMessage) {
 
